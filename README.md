@@ -3,7 +3,7 @@ Easily process the lines using pipes in [xonsh shell](https://xon.sh).
 ## Install
 ```
 xpip install -U git+https://github.com/anki-code/xontrib-pipeliner
-echo 'xontrib load prompt_bar' >> ~/.xonshrc
+echo 'xontrib load pipeliner' >> ~/.xonshrc
 # Reload xonsh
 ```
 
