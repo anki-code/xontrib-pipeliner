@@ -7,7 +7,7 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 # Reload xonsh
 ```
 
-## Usecases
+## Use cases
 
 ### Python way to line modification
 ```
