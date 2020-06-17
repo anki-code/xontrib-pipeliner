@@ -77,5 +77,23 @@ lib32
 *****
 ```
 
+### Multicore pipelining
+By default pipeliner works using one CPU core. To use them all in parallel try `ppl` command:
+```
+$ head /etc/passwd | ppl "str(num) + ' ' + line.split(':')[0]"                                                                                                                                                                         
+1 daemon
+0 root
+2 bin
+4 sync
+5 games
+8 mail
+9 news
+6 man
+7 lp
+3 sys
+```
+Note! The order of result lines is unpredictable because lines will be processed in parallel. 
+The `num` variable contains the real line number. 
+
 ## Thanks
 * @laloch in https://github.com/xonsh/xonsh/issues/3366
