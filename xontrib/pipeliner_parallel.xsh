@@ -6,7 +6,7 @@ class PipelinerParallel(object):
 
    def f(self, args):
        line, num = args
-       return eval(self.code, globals(), locals())
+       return eval(self.code, __xonsh__.ctx, locals())
 
    def go(self, func_args, stdout):
        with Pool(cpu_count()) as p:
