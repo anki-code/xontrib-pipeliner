@@ -5,8 +5,10 @@ class PipelinerParallel(object):
        self.code = code
 
    def f(self, args):
-       line, num = args
-       return eval(self.code, __xonsh__.ctx, locals())
+       ctx = __xonsh__.ctx
+       ctx['line'] = args[0]
+       ctx['num'] = args[1]
+       return eval(self.code, ctx)
 
    def go(self, func_args, stdout):
        with Pool(cpu_count()) as p:
@@ -19,7 +21,7 @@ class PipelinerParallel(object):
 
 if __name__ == '__main__':
     import sys
-    ppl = PipelinerParallel("'this is parallel ' + line")
+    ppl = PipelinerParallel("'this is parallel ' + line", globals())
     lines = []
     for num in range(0,10):
         lines.append([f'test line {num}', num])
