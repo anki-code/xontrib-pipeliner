@@ -1,4 +1,5 @@
 from multiprocessing import Pool, cpu_count
+import sys
 
 class PipelinerParallel(object):
    def __init__(self, code):
