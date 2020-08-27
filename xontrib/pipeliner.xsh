@@ -5,7 +5,11 @@ def _pl(args, stdin, stdout):
     fn = eval('lambda line, num:'+args[0], __xonsh__.ctx)
     num = 0
     for line in stdin.readlines():
-        res = fn(line.rstrip(os.linesep), num)
+        try:
+            res = fn(line.rstrip(os.linesep), num)
+        except:
+            print(f'Error line {num+1}: {line}', file=sys.stderr)
+            raise
         num += 1
         print(res, file=stdout, flush=True)
 
