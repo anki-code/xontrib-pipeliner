@@ -1,4 +1,4 @@
-Easily process the lines using pipes in [xonsh shell](https://xon.sh).
+Easily process the lines using pipes in [xonsh shell](https://xon.sh). Multicore processing supported.
 
 ## Install
 ```
