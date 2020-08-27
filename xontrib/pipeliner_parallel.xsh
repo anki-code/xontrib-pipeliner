@@ -8,7 +8,11 @@ class PipelinerParallel(object):
        ctx = __xonsh__.ctx
        ctx['line'] = args[0]
        ctx['num'] = args[1]
-       return eval(self.code, ctx)
+       try:
+           return eval(self.code, ctx)
+       except:
+           print(f'Error line {args[1]+1}: {args[0]}', file=sys.stderr)
+           raise
 
    def go(self, func_args, stdout):
        with Pool(cpu_count()) as p:
