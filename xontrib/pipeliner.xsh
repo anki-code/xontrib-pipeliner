@@ -1,4 +1,4 @@
-import os
+import os, sys
 from xontrib.pipeliner_parallel import PipelinerParallel
 
 def _pl(args, stdin, stdout):
