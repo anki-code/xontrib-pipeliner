@@ -35,7 +35,7 @@ def _ppl(args, stdin, stdout):
         print('Error: Python code not found', file=sys.stderr)
         err = True
     if err:
-        print('Usage: <command> | <command> | ... | pl "<Python code>"')
+        print('Usage: <command> | <command> | ... | ppl "<Python code>"')
         print('Example: echo "123" | ppl "line[::-1]"', file=sys.stderr)
         return
 
