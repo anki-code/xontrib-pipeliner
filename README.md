@@ -95,5 +95,14 @@ $ head /etc/passwd | ppl "str(num) + ' ' + line.split(':')[0]"
 Note! The order of result lines is unpredictable because lines will be processed in parallel. 
 The `num` variable contains the real line number. 
 
+### How to avoid Python code as a string
+To avoid writing Python inside string and get syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
+```python
+def py(code):
+    return code
+
+echo 123 | pl @(py!(line + '2'))
+```
+
 ## Thanks
 * @laloch in https://github.com/xonsh/xonsh/issues/3366
