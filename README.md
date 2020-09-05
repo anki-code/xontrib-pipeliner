@@ -1,4 +1,11 @@
-Easily process the lines using pipes in [xonsh shell](https://xon.sh). Multicore processing supported.
+<p align="center">  
+Easily process the lines using pipes in <a href="https://xon.sh">xonsh shell</a>. Multicore processing supported.
+</p>
+
+<p align="center">  
+If you like the idea of xxh click ⭐ on the repo and stay tuned.
+</p>
+
 
 ## Install
 ```
@@ -75,6 +82,18 @@ initrd.img
 lib
 lib32
 *****
+```
+
+### Getting lines from pipe and execute new command with the line
+Getting the size of three directories from `ls` command:
+```
+$ ls / | head -n 3 | pl "execx('du -sh /'+line) or 'Done command with /'+line"
+0       /bin
+Done command with /bin
+840M    /boot
+Done command with /boot
+4,0K    /cdrom
+Done command with /cdrom
 ```
 
 ### Multicore pipelining
