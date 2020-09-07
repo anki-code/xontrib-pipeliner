@@ -3,7 +3,7 @@ Easily process the lines using pipes in <a href="https://xon.sh">xonsh shell</a>
 </p>
 
 <p align="center">  
-If you like the idea of xxh click ⭐ on the repo and stay tuned.
+If you like the idea of pipeliner click ⭐ on the repo and stay tuned.
 </p>
 
 
