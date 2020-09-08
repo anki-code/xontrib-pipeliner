@@ -11,7 +11,7 @@ def _pl(args, stdin, stdout):
         print('Error: Python code not found', file=sys.stderr)
         err = True
     if err:
-        print('Usage: <command> | <command> | ... | pl "<Python code>"')
+        print('Usage: <command> | <command> | ... | pl "<Python code>"', file=sys.stderr)
         print('Example: echo "123" | pl "line[::-1]"', file=sys.stderr)
         return
 
@@ -22,7 +22,7 @@ def _pl(args, stdin, stdout):
             res = fn(line.rstrip(os.linesep), num)
         except:
             print_color('{YELLOW}' + f'Error line {num+1}: {line}', file=sys.stderr)
-            print_color('{YELLOW}' + str(traceback.format_exc()))
+            print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)
             return
         num += 1
         if res is not None:
@@ -38,7 +38,7 @@ def _ppl(args, stdin, stdout):
         print('Error: Python code not found', file=sys.stderr)
         err = True
     if err:
-        print('Usage: <command> | <command> | ... | ppl "<Python code>"')
+        print('Usage: <command> | <command> | ... | ppl "<Python code>"', file=sys.stderr)
         print('Example: echo "123" | ppl "line[::-1]"', file=sys.stderr)
         return
 
