@@ -76,8 +76,8 @@ cat /etc/passwd | head -n 3 | pl "line.split(':')" | grep nologin | pl "':'.join
 /usr/sbin/nologin:/bin:bin:2:2:x:bin
 ```
 
-### Operations chaining (Python 3.8+)
-Expression is lambda function and chaining of operations in Python 3.8 looks as:
+### Variables and operations chaining
+Expression is a lambda function so using variables and operations chaining since Python 3.8+ are available by trick with the walrus operator and the list:
 ```bash
 ls -1 / | head -n3 | pl "[s:='b', line.replace(s, s.upper()+')')][-1]"
 ```
