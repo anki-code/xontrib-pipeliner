@@ -19,7 +19,8 @@ class PipelinerParallel(object):
        with Pool(cpu_count()) as p:
            parallel_tasks = p.imap_unordered(self, func_args)
            for result in parallel_tasks:
-               print(result, file=stdout, flush=True)
+               if result is not None:
+                   print(result, file=stdout, flush=True)
 
    def __call__(self, x):
      return self.f(x)
