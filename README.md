@@ -158,3 +158,13 @@ mv 333 prefix-333
 $ ls
 prefix-111 prefix-222 prefix-333
 ```
+Echo example:
+```bash
+$ ls | plx 'echo {line} # {num}'
+echo prefix-111 # 0
+prefix-111
+echo prefix-222 # 1
+prefix-222
+echo prefix-333 # 2
+prefix-333
+```
