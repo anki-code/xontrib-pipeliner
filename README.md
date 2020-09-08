@@ -8,7 +8,7 @@ If you like the idea of pipeliner click ⭐ on the repo and stay tuned.
 
 
 ## Install
-```
+```bash
 xpip install -U xontrib-pipeliner
 echo 'xontrib load pipeliner' >> ~/.xonshrc
 # Reload xonsh
@@ -17,80 +17,81 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 ## Use cases
 
 ### Python way to line modification
+```bash
+ls -1 / | pl "line + ' is here'" | head -n 3
 ```
-$ ls -1 / | pl "line + ' is here'" | head -n 3
+```
 bin is here
 boot is here
 dev is here
 ```
 
-### Ignore line
-To ignore line returning just return `None`:
+### Line number
+```bash
+ls -1 / | head -n 4 | pl "f'{num} {line}'"
 ```
-$ ls -1 / | pl "f'{num} {line}' if num%3 == 0 else None"
+```
 0 bin
-3 home
-6 lib32
-9 mnt
+1 boot
+2 cdrom
+3 dev
+```
+
+### Ignore line
+```bash
+$ ls -1 / | head -n 4 | pl "f'{num} {line}' if num%2 == 0 else None"
+```
+```
+0 bin
+2 cdrom
 ```
 
 ### Splitting
+```bash
+cat /etc/passwd | head -n 3 | pl "line.split(':')[6]"
 ```
-$ cat /etc/passwd | head -n 3
-root:x:0:0:root:/root:/bin/bash
-daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
-bin:x:2:2:bin:/bin:/usr/sbin/nologin
-
-$ cat /etc/passwd | head -n 3 | pl "line.split(':')[6]"
+```
 /bin/bash
 /usr/sbin/nologin
 /usr/sbin/nologin
 ```
 
 ### Imports
+```bash
+import re
+cat /etc/passwd | head -n 3 | pl "re.sub('/bin/bash', '/usr/bin/xonsh', line)"
 ```
-$ import re
-$ cat /etc/passwd | head -n 3 | pl "re.sub('/bin/bash', '/usr/bin/xonsh', line)"
+```
 root:x:0:0:root:/root:/usr/bin/xonsh
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
 ```
 
 ### Arrays
+```bash
+cat /etc/passwd | head -n 3 | pl "line.split(':')" | grep nologin | pl "':'.join(eval(line)[::-1])"
 ```
-$ cat /etc/passwd | head -n 3 | pl "line.split(':')" | grep nologin | pl "':'.join(eval(line)[::-1])"
+```
 /usr/sbin/nologin:/usr/sbin:daemon:1:1:x:daemon
 /usr/sbin/nologin:/bin:bin:2:2:x:bin
 ```
 
 ### Operations chaining (Python 3.8+)
 Expression is lambda function and chaining of operations in Python 3.8 looks as:
+```bash
+ls -1 / | head -n3 | pl "[s:='b', line.replace(s, s.upper()+')')][-1]"
 ```
-$ ls -1 / | head -n3 | pl "[s:='b', line.replace(s, s.upper()+')')][-1]"
+```
 B)in
 B)oot
 dev
 ```
 
-### Line number
+### Execute command with the line
+```bash
+ls / | head -n 3 | pl "execx('du -sh /'+line) or 'Done command with /'+line"
 ```
-$ ls -1 / | head | pl "'*'*len(line) if num%3 == 0 else line"
-***
-boot
-dev
-***
-home
-initrd.img
-**************
-lib
-lib32
-*****
 ```
-
-### Getting lines from pipe and execute new command with the line
-Getting the size of three directories from `ls` command:
-```
-$ ls / | head -n 3 | pl "execx('du -sh /'+line) or 'Done command with /'+line"
 0       /bin
 Done command with /bin
 840M    /boot
@@ -101,8 +102,10 @@ Done command with /cdrom
 
 ### Multicore pipelining
 By default pipeliner works using one CPU core. To use them all in parallel try `ppl` command:
+```bash
+head /etc/passwd | ppl "str(num) + ' ' + line.split(':')[0]"
 ```
-$ head /etc/passwd | ppl "str(num) + ' ' + line.split(':')[0]"                                                                                                                                                                         
+```
 1 daemon
 0 root
 2 bin
@@ -117,14 +120,11 @@ $ head /etc/passwd | ppl "str(num) + ' ' + line.split(':')[0]"
 Note! The order of result lines is unpredictable because lines will be processed in parallel. 
 The `num` variable contains the real line number. 
 
-### How to avoid Python code as a string
-To avoid writing Python inside string and get syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
+### Escape from the string
+To avoid writing Python inside the string and get the syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
 ```python
 def py(code):
     return code
 
 echo 123 | pl @(py!(line + '2'))
 ```
-
-## Thanks
-* @laloch in https://github.com/xonsh/xonsh/issues/3366
