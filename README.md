@@ -15,15 +15,15 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 ```
 
 ## Usage
-Let your lines from a pipe flow to a Python code and back:
+Let your pipe lines flow thru the Python code:
 ```bash
-<cmd> | <cmd> | ... | pl "<python lambda expression>" | <cmd> | ...
+<cmd> | ... | pl "<lambda expression>" | <cmd> | ...
 ```
 There are two variables available in lambda expression:
 * `line` from pipe.
 * `num` of the line starts with 0.
 
-To run expression in multi core mode use `ppl` (parallel `pl`).
+To run expression in multi core mode use parallel `pl` - `ppl`. Also take a look at `plx` below to execute the commands on the data from pipe lines.
 
 ## Examples
 
@@ -138,4 +138,23 @@ def py(code):
     return code
 
 echo 123 | pl @(py!(line + '2'))
+```
+
+## Experimental
+### Pipeliner exec
+There are `plx` and `pplx` commands to run `execx(f"{plx_command}")` most shorter way.
+
+For example when you want to rename files you can do it Pythonic way:
+```bash
+$ mkdir -p /tmp/plx-test && cd /tmp/plx-test
+$ touch 111 222 333 && ls
+111 222 333
+
+$ ls | plx "mv {line} prefix-{line}"
+mv 111 prefix-111
+mv 222 prefix-222
+mv 333 prefix-333
+
+$ ls
+prefix-111 prefix-222 prefix-333
 ```
