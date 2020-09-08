@@ -23,7 +23,9 @@ There are two variables available in lambda expression:
 * `line` from pipe.
 * `num` of the line starts with 0.
 
-To run expression in multi core mode use parallel `pl` - `ppl`. Also take a look at `plx` below to execute the commands on the data from pipe lines.
+Experimental features:
+* `ppl` is to run multicore `pl`.
+* `plx` is the shorter way to execute the commands with pipe lines.
 
 ## Examples
 
@@ -111,6 +113,16 @@ Done command with /boot
 Done command with /cdrom
 ```
 
+## Escape from the string
+To avoid writing Python inside the string and get the syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
+```python
+def py(code):
+    return code
+
+echo 123 | pl @(py!(line + '2'))
+```
+
+## Experimental
 ### Multicore pipelining
 By default pipeliner works using one CPU core. To use them all in parallel try `ppl` command:
 ```bash
@@ -131,16 +143,6 @@ head /etc/passwd | ppl "str(num) + ' ' + line.split(':')[0]"
 Note! The order of result lines is unpredictable because lines will be processed in parallel. 
 The `num` variable contains the real line number. 
 
-### Escape from the string
-To avoid writing Python inside the string and get the syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
-```python
-def py(code):
-    return code
-
-echo 123 | pl @(py!(line + '2'))
-```
-
-## Experimental
 ### Pipeliner exec
 There are `plx` and `pplx` commands to run `execx(f"{plx_command}")` most shorter way.
 
