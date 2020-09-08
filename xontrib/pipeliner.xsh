@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, traceback
 from xontrib.pipeliner_parallel import PipelinerParallel
 from xonsh.tools import print_color
 
