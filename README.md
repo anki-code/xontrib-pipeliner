@@ -63,7 +63,7 @@ $ cat /etc/passwd | head -n 3 | pl "line.split(':')" | grep nologin | pl "':'.jo
 /usr/sbin/nologin:/bin:bin:2:2:x:bin
 ```
 
-### Operations chaining (Python 3.8)
+### Operations chaining (Python 3.8+)
 Expression is lambda function and chaining of operations in Python 3.8 looks as:
 ```
 $ ls -1 / | head -n3 | pl "[s:='b', line.replace(s, s.upper()+')')][-1]"
