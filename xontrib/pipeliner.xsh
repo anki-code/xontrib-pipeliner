@@ -63,7 +63,7 @@ aliases['pl'] = _pl
 aliases['ppl'] = _ppl
 
 # Experimental
-aliases['plx'] = lambda a,i,o: _pl([f'execx(f"{a[0]}") or print(f"{a[0]}")'], i, o)
-aliases['pplx'] = lambda a,i,o: _ppl([f'execx(f"{a[0]}") or print(f"{a[0]}")'], i, o)
+aliases['plx'] = lambda a,i,o: aliases['pl']([f'execx(f"{a[0]}") or print(f"{a[0]}")'], i, o)
+aliases['pplx'] = lambda a,i,o: aliases['ppl']([f'execx(f"{a[0]}") or print(f"{a[0]}")'], i, o)
 
 del _pl, _ppl
