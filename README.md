@@ -18,17 +18,20 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 
 ### Python way to line modification
 ```
-$ ls -1 / | head -n5
-bin
-boot
-dev
-etc
-home
-
-$ ls -1 / | head -n5 | pl "line + ' is here'" | head -n 3
+$ ls -1 / | pl "line + ' is here'" | head -n 3
 bin is here
 boot is here
 dev is here
+```
+
+### Ignore line
+To ignore line returning just return `None`:
+```
+$ ls -1 / | pl "f'{num} {line}' if num%3 == 0 else None"
+0 bin
+3 home
+6 lib32
+9 mnt
 ```
 
 ### Splitting
