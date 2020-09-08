@@ -14,7 +14,14 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 # Reload xonsh
 ```
 
-## Use cases
+## Usage
+Let your lines from a pipe flow to a Python code and back:
+```bash
+<command> | <command> | ... | pl "<python lambda expression with 'line' and 'num' variables>" | <command>
+```
+To run expression in multi core mode use `ppl` (parallel `pl`).
+
+## Examples
 
 ### Python way to line modification
 ```bash
