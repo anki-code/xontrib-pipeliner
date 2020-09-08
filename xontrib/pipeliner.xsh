@@ -1,5 +1,6 @@
 import os, sys
 from xontrib.pipeliner_parallel import PipelinerParallel
+from xonsh.tools import print_color
 
 def _pl(args, stdin, stdout):
     err = False
@@ -20,8 +21,9 @@ def _pl(args, stdin, stdout):
         try:
             res = fn(line.rstrip(os.linesep), num)
         except:
-            print(f'Error line {num+1}: {line}', file=sys.stderr)
-            raise
+            print_color('{YELLOW}' + f'Error line {num+1}: {line}', file=sys.stderr)
+            print_color('{YELLOW}' + str(traceback.format_exc()))
+            return
         num += 1
         if res is not None:
             print(res, file=stdout, flush=True)
