@@ -23,7 +23,8 @@ def _pl(args, stdin, stdout):
             print(f'Error line {num+1}: {line}', file=sys.stderr)
             raise
         num += 1
-        print(res, file=stdout, flush=True)
+        if res is not None:
+            print(res, file=stdout, flush=True)
 
 
 def _ppl(args, stdin, stdout):
