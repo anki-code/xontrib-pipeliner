@@ -17,8 +17,12 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 ## Usage
 Let your lines from a pipe flow to a Python code and back:
 ```bash
-<command> | <command> | ... | pl "<python lambda expression with 'line' and 'num' variables>" | <command> | ...
+<cmd> | <cmd> | ... | pl "<python lambda expression>" | <cmd> | ...
 ```
+There are two variables available in lambda expression:
+* `line` from pipe.
+* `num` of the line starts with 0.
+
 To run expression in multi core mode use `ppl` (parallel `pl`).
 
 ## Examples
