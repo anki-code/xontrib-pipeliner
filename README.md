@@ -125,7 +125,7 @@ echo 123 | pl @(py!(line + '2'))
 ## Wrap pipeliner to get your own magic
 ```python
 aliases['my_lovely_pl'] = lambda a,i,o: aliases['pl'](["'My lovely ' + "+a[0]], i, o)
-aliases['my_lovely_ppl'] = lambda a,i,o: aliases['ppl'](["'My parallel ' + "+a[0]], i, o)
+aliases['my_parallel_ppl'] = lambda a,i,o: aliases['ppl'](["'My parallel ' + "+a[0]], i, o)
 ```
 ```bash
 $ ls / | head -n 3 | my_lovely_pl "line + '!'"
@@ -133,7 +133,7 @@ My lovely bin!
 My lovely boot!
 My lovely cdrom!
 
-$ ls / | head -n 3 | my_lovely_ppl "line + '!'"
+$ ls / | head -n 3 | my_parallel_ppl "line + '!'"
 My parallel boot!
 My parallel cdrom!
 My parallel bin!
