@@ -122,6 +122,24 @@ def py(code):
 echo 123 | pl @(py!(line + '2'))
 ```
 
+## Wrap pipeliner to get your own magic
+```python
+aliases['my_lovely_pl'] = lambda a,i,o: aliases['pl'](["'My lovely ' + "+a[0]], i, o)
+aliases['my_lovely_ppl'] = lambda a,i,o: aliases['ppl'](["'My parallel ' + "+a[0]], i, o)
+```
+```bash
+$ ls / | head -n 3 | my_lovely_pl "line + '!'"
+My lovely bin!
+My lovely boot!
+My lovely cdrom!
+
+$ ls / | head -n 3 | my_lovely_ppl "line + '!'"
+My parallel boot!
+My parallel cdrom!
+My parallel bin!
+```
+Add your most useful solutions to xontrib-pipeliner. PRs are welcome!
+
 ## Experimental
 ### Multicore pipelining
 By default pipeliner works using one CPU core. To use them all in parallel try `ppl` command:
