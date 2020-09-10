@@ -112,6 +112,7 @@ Done command with /boot
 4,0K    /cdrom
 Done command with /cdrom
 ```
+Note! If you do the operations with files (i.e. `pl "execx(f'mv {line} prefix-{line}')"`) you could catch `TypeError: an integer is required` error that relates to wrong access rights to files. Fix it with `chmod` and `chown` before pipelining.
 
 ## Escape from the string
 To avoid writing Python inside the string and get the syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
