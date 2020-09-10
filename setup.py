@@ -9,7 +9,7 @@ except (IOError, OSError):
 
 setup(
     name='xontrib-pipeliner',
-    version='0.2.1',
+    version='0.2.3',
     license='BSD',
     author='anki',
     author_email='author@example.com',
