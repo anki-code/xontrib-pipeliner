@@ -4,10 +4,7 @@ from xonsh.tools import print_color
 
 def _pl(args, stdin, stdout):
     err = False
-    if stdin is None:
-        print('Error: Command output not found', file=sys.stderr)
-        err = True
-    elif len(args) == 0:
+    if len(args) == 0:
         print('Error: Python code not found', file=sys.stderr)
         err = True
     if err:
@@ -16,6 +13,14 @@ def _pl(args, stdin, stdout):
         return
 
     fn = eval('lambda line, num:'+args[0], __xonsh__.ctx)
+
+    if stdin is None:
+        try:
+            print(fn(None, 0))
+        except:
+            print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)
+        return
+
     num = 0
     for line in stdin.readlines():
         try:

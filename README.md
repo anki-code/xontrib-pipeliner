@@ -89,6 +89,16 @@ cat /etc/passwd | head -n 3 | pl "line.split(':')" | grep nologin | pl "':'.join
 /usr/sbin/nologin:/bin:bin:2:2:x:bin
 ```
 
+### Python head
+```bash
+pl "'\\n'.join(list('ABCDEFG'))" | pl "line + ('!' if num%2 else '?')" | grep '!'
+```
+```
+B!
+D!
+F!
+```
+
 ### Variables and operations chaining
 Expression is a lambda function so using variables and operations chaining since Python 3.8+ are available by trick with the walrus operator and the list:
 ```bash
