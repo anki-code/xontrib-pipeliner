@@ -204,8 +204,8 @@ prefix-333
 
 Pipeliner should be a part of xonsh and has shortcut and syntax highlighting. For example:
 ```bash
-echo 'Pipeliner shoud be ' | @{line + 'a part of xonsh!'}
+echo 'Pipeliner should be ' | @{line + 'a part of xonsh!'}
 ```
 ```
-Pipeliner shoud be a part of xonsh!
+Pipeliner should be a part of xonsh!
 ```
