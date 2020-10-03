@@ -199,3 +199,13 @@ prefix-222
 echo prefix-333 # 2
 prefix-333
 ```
+
+## Future
+
+Pipeliner should be a part of xonsh and has shortcut and syntax highlighting. For example:
+```bash
+echo 'Pipeliner shoud be ' | @{line + 'a part of xonsh!'}
+```
+```
+Pipeliner shoud be a part of xonsh!
+```
