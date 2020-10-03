@@ -200,6 +200,9 @@ echo prefix-333 # 2
 prefix-333
 ```
 
+## Pipeliner in xsh scripts
+By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner to your script just do `xontrib load pipeliner` before usage.
+
 ## Future
 
 Pipeliner should be a part of xonsh and has shortcut and syntax highlighting. For example:
