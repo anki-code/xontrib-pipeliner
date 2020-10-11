@@ -1,6 +1,7 @@
-import os, sys, traceback
+import os, sys, traceback, ast
 from xontrib.pipeliner_parallel import PipelinerParallel
 from xonsh.tools import print_color
+from xontrib_pipeliner_asttokens import asttokens
 
 def _pl(args, stdin, stdout):
     err = False
@@ -66,9 +67,37 @@ def _ppl(args, stdin, stdout):
 
 aliases['pl'] = _pl
 aliases['ppl'] = _ppl
+del _pl, _ppl
 
+#
 # Experimental
+#
+
 aliases['plx'] = lambda a,i,o: aliases['pl']([f'print(f"{a[0]}") or execx(f"{a[0]}")'], i, o)
 aliases['pplx'] = lambda a,i,o: aliases['ppl']([f'print(f"{a[0]}") or execx(f"{a[0]}")'], i, o)
 
-del _pl, _ppl
+
+@events.on_transform_command
+def on_transform_command_pipeliner(cmd, **kw):
+    prefix = 'pl @('
+    if cmd.strip() and "| "+prefix in cmd:
+        try:
+            atok = asttokens.ASTTokens(
+                tree=__xonsh__.execer.parse(cmd, ctx=__xonsh__.ctx),
+                source_text=cmd,
+                parse=False,
+                mark_node_specific_methods=False
+            )
+        except Exception:
+            return cmd
+        nodes = {}
+        for node in ast.walk(atok.tree):
+            if hasattr(node, 'lineno'):
+                nodes[atok.get_text(node)] = atok.get_text_range(node)
+
+        for n, pos in nodes.items():
+            if n.startswith(prefix) and n.endswith(')'):
+                start, end = pos
+                cmd = cmd[:start] + 'pl ' + repr(n[len(prefix):-1]) + cmd[end:]
+        return cmd
+    return cmd

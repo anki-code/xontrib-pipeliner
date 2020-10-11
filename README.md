@@ -124,15 +124,6 @@ Done command with /cdrom
 ```
 Note! If you do the operations with files (i.e. `pl "execx(f'mv {line} prefix-{line}')"`) you could catch `TypeError: an integer is required` error that relates to wrong access rights to files. Fix it with `chmod` and `chown` before pipelining.
 
-## Escape from the string
-To avoid writing Python inside the string and get the syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
-```python
-def py(code):
-    return code
-
-echo 123 | pl @(py!(line + '2'))
-```
-
 ## Wrap pipeliner to get your own magic
 ```python
 aliases['my_lovely_pl'] = lambda a,i,o: aliases['pl'](["'My lovely ' + "+a[0]], i, o)
@@ -152,6 +143,28 @@ My parallel bin!
 Add your most useful solutions to xontrib-pipeliner. PRs are welcome!
 
 ## Experimental
+
+### Syntax highlighting using xonsh prompt
+
+If you're using xonsh prompt and want to use pipeliner with syntax highlighting instead of string there is experimental 
+feature that catch `pl @(<python>)` calls and uses the expression from the xonsh python substitution as pipeliner argument.
+Example:
+
+```bash
+echo echo | pl @(line + '!')
+# In the xonsh prompt it's equals to:
+echo echo | pl "line + '!'" 
+```
+
+### Syntax highlighting using xonsh macros
+To avoid writing Python inside the string and get the syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
+```python
+def py(code):
+    return code
+
+echo 123 | pl @(py!(line + '2'))
+```
+
 ### Multicore pipelining
 By default pipeliner works using one CPU core. To use them all in parallel try `ppl` command:
 ```bash
