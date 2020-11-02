@@ -219,7 +219,7 @@ By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner t
 ## Future
 
 Pipeliner should be a part of xonsh and has shortcut and syntax highlighting. For example:
-```bash
+```python
 echo 'Pipeliner should be ' | @{line + 'a part of xonsh!'}
 # or
 echo 'Pipeliner should be ' | ~(line + 'a part of xonsh!')
