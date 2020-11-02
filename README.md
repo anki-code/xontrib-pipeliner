@@ -220,13 +220,15 @@ By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner t
 
 Pipeliner should be a part of xonsh and has shortcut and syntax highlighting. For example:
 ```python
-echo 'Pipeliner should be ' | @{line + 'a part of xonsh!'}
+echo 'Pipeliner should be ' | pl @{line + 'a part of xonsh!'}
 # or
 echo 'Pipeliner should be ' | ~(line + 'a part of xonsh!')
 ```
 ```
 Pipeliner should be a part of xonsh!
 ```
+
+If you want to support this in xonsh add your Like and support message to [Python code substitution in subproc mode](https://github.com/xonsh/xonsh/issues/3945).
 
 ## Links 
 * This package is the part of [ergopack](https://github.com/anki-code/xontrib-ergopack) - the pack of ergonomic xontribs.
