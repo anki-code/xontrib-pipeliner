@@ -3,15 +3,15 @@ from multiprocessing import Pool, cpu_count
 from xonsh.tools import print_color
 
 class PipelinerParallel(object):
-   def __init__(self, code):
+   def __init__(self, code, ctx):
        self.code = code
+       self.ctx = ctx
 
    def f(self, args):
-       ctx = __xonsh__.ctx
-       ctx['line'] = args[0]
-       ctx['num'] = args[1]
+       self.ctx['line'] = args[0]
+       self.ctx['num'] = args[1]
        try:
-           return eval(self.code, ctx)
+           return eval(self.code, self.ctx)
        except:
            print_color('{YELLOW}' + f'Error line {args[1]+1}: {args[0]}', file=sys.stderr)
            print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)           
