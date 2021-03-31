@@ -216,6 +216,10 @@ prefix-333
 ## Pipeliner in xsh scripts
 By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner to your script just do `xontrib load pipeliner` before usage.
 
+## Known issues
+
+Tested on Linux. Mac and Windows can have an issues. Please report and help to fix.
+
 ## Future
 
 Pipeliner should be a part of xonsh and has shortcut and syntax highlighting. For example:
