@@ -56,12 +56,12 @@ def _ppl(args, stdin, stdout):
         num += 1
 
         if num % batch_size == 0:
-            xppl = PipelinerParallel(args[0], __xonsh__.ctx)
+            xppl = PipelinerParallel(args[0])
             xppl.go(func_args, stdout)
             func_args = []
 
     if func_args:
-        xppl = PipelinerParallel(args[0], __xonsh__.ctx)
+        xppl = PipelinerParallel(args[0])
         xppl.go(func_args, stdout)
 
 
