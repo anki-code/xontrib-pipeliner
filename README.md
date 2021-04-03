@@ -218,7 +218,13 @@ By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner t
 
 ## Known issues
 
-Tested on Linux. Mac and Windows can have an issues. Please report and help to fix.
+### ppl: [On MacOS global variables are not accessible from child processes](https://bugs.python.org/issue39931)
+
+On Mac you can't access to the xonsh context (global variables and functions) in the expression. PR is welcome!
+
+### ppl: On MacOS multicore pipelining freezes on end
+
+Workaround is to add `cat` at the end: `echo 1 | ppl 'line' | cat`. PR is welcome!
 
 ## Future
 

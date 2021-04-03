@@ -1,4 +1,5 @@
-import sys, traceback
+import sys
+import traceback
 from multiprocessing import Pool, cpu_count
 from xonsh.tools import print_color
 
@@ -7,6 +8,12 @@ class PipelinerParallel(object):
        self.code = code
 
    def f(self, args):
+       ctx = {}
+       try:
+           # Mac issue - https://github.com/anki-code/xontrib-pipeliner/issues/4#issuecomment-812814445
+           ctx = __xonsh__.ctx
+       except:
+           pass
        ctx['line'] = args[0]
        ctx['num'] = args[1]
        try:

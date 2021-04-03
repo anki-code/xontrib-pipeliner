@@ -9,7 +9,7 @@ except (IOError, OSError):
 
 setup(
     name='xontrib-pipeliner',
-    version='0.3.2',
+    version='0.3.3',
     license='BSD',
     author='anki',
     author_email='author@example.com',
@@ -18,7 +18,7 @@ setup(
     long_description_content_type='text/markdown',
     python_requires='>=3.6',
     install_requires=['xonsh', 'six'],
-    packages=['xontrib', 'xontrib_pipeliner_asttokens'],
+    packages=['xontrib.pipeliner', 'xontrib_pipeliner_asttokens'],
     package_dir={'xontrib': 'xontrib'},
     package_data={'xontrib': ['*.py']},
     platforms='any',

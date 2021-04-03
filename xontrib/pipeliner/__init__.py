@@ -1,5 +1,8 @@
-import os, sys, traceback, ast
-from xontrib.pipeliner_parallel import PipelinerParallel
+import os
+import sys
+import traceback
+import ast
+from xontrib.pipeliner.parallel import PipelinerParallel
 from xonsh.tools import print_color
 from xontrib_pipeliner_asttokens import asttokens
 
