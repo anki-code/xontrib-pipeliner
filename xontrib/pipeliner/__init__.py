@@ -72,12 +72,13 @@ aliases['pl'] = _pl
 aliases['ppl'] = _ppl
 del _pl, _ppl
 
+
 #
 # Experimental
 #
 
-aliases['plx'] = lambda a,i,o: aliases['pl']([f'print(f"{a[0]}") or execx(f"{a[0]}")'], i, o)
-aliases['pplx'] = lambda a,i,o: aliases['ppl']([f'print(f"{a[0]}") or execx(f"{a[0]}")'], i, o)
+aliases['plx'] = lambda a,i,o: aliases['pl']([f'print(f"{a[0]}", file=sys.stderr) or execx(f"{a[0]}")'], i, o)
+aliases['pplx'] = lambda a,i,o: aliases['ppl']([f'print(f"{a[0]}", file=sys.stderr) or execx(f"{a[0]}")'], i, o)
 
 
 @events.on_transform_command
