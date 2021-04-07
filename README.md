@@ -23,9 +23,10 @@ There are two variables available in lambda expression:
 * `line` from pipe.
 * `num` of the line starts with 0.
 
-#### Experimental features:
-* `ppl` is to run multicore `pl`.
-* `plx` is the shorter way to execute the commands with pipe lines i.e. `ls /home | plx 'du -sh /home/{line}'`
+#### Experimental features
+
+* `ppl` is to run multicore `pl`. It works and tested mostly on Linux. See "Known issues" section.
+* `plx` is the shorter way to execute the commands with pipe lines i.e. `ls /home | plx 'du -sh /home/{line}'`.
 
 ## Examples
 
