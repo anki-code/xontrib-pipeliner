@@ -3,7 +3,7 @@ Easily process the lines using pipes in <a href="https://xon.sh">xonsh shell</a>
 </p>
 
 <p align="center">  
-If you like the idea of pipeliner click ⭐ on the repo and stay tuned.
+If you like the idea of pipeliner click ⭐ on the repo and <a href="https://twitter.com/intent/tweet?text=Nice%20xontrib%20for%20the%20xonsh%20shell!&url=https://github.com/anki-code/xontrib-macro-lib" target="_blank">tweet</a>.
 </p>
 
 
