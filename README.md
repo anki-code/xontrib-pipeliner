@@ -25,7 +25,7 @@ There are two variables available in lambda expression:
 
 #### Experimental features
 
-* `ppl` is to run multicore `pl`. It works and tested mostly on Linux. See "Known issues" section.
+* `ppl` is to run multicore `pl`. It tested mostly on Linux. See "Known issues" section.
 * `plx` is the shorter way to execute the commands with pipe lines i.e. `ls /home | plx 'du -sh /home/{line}'`.
 
 ## Examples
