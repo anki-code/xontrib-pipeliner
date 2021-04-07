@@ -130,15 +130,15 @@ aliases['my_lovely_pl'] = lambda a,i,o: aliases['pl'](["'My lovely ' + "+a[0]], 
 aliases['my_parallel_ppl'] = lambda a,i,o: aliases['ppl'](["'My parallel ' + "+a[0]], i, o)
 ```
 ```bash
-$ ls / | head -n 3 | my_lovely_pl "line + '!'"
-My lovely bin!
-My lovely boot!
-My lovely cdrom!
+ls / | head -n 3 | my_lovely_pl "line + '!'"
+# My lovely bin!
+# My lovely boot!
+# My lovely cdrom!
 
-$ ls / | head -n 3 | my_parallel_ppl "line + '!'"
-My parallel boot!
-My parallel cdrom!
-My parallel bin!
+ls / | head -n 3 | my_parallel_ppl "line + '!'"
+# My parallel boot!
+# My parallel cdrom!
+# My parallel bin!
 ```
 Add your most useful solutions to xontrib-pipeliner. PRs are welcome!
 
@@ -190,27 +190,27 @@ There are `plx` and `pplx` commands to run `execx(f"{plx_command}")` most shorte
 
 For example when you want to rename files you can do it Pythonic way:
 ```bash
-$ mkdir -p /tmp/plx-test && cd /tmp/plx-test
-$ touch 111 222 333 && ls
-111 222 333
+mkdir -p /tmp/plx-test && cd /tmp/plx-test
+touch 111 222 333 && ls
+# 111 222 333
 
-$ ls | plx "mv {line} prefix-{line}"
-mv 111 prefix-111
-mv 222 prefix-222
-mv 333 prefix-333
+ls | plx "mv {line} prefix-{line}"
+# mv 111 prefix-111
+# mv 222 prefix-222
+# mv 333 prefix-333
 
-$ ls
-prefix-111 prefix-222 prefix-333
+ls
+# prefix-111 prefix-222 prefix-333
 ```
 Echo example:
 ```bash
-$ ls | plx 'echo {line} # {num}'
-echo prefix-111 # 0
-prefix-111
-echo prefix-222 # 1
-prefix-222
-echo prefix-333 # 2
-prefix-333
+ls | plx 'echo {line} # {num}'
+# echo prefix-111 # 0
+# prefix-111
+# echo prefix-222 # 1
+# prefix-222
+# echo prefix-333 # 2
+# prefix-333
 ```
 
 ## Pipeliner in xsh scripts
