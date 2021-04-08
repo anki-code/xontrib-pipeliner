@@ -217,7 +217,11 @@ ls | plx 'echo {line} # {num}'
 ## Pipeliner in xsh scripts
 By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner to your script just do `xontrib load pipeliner` before usage.
 
-## Known issues
+## Known issues in experimental functions
+
+### plx: "Bad file descriptor" on huge amount of lines
+
+https://github.com/xonsh/xonsh/issues/4224
 
 ### ppl: [On MacOS global variables are not accessible from child processes](https://bugs.python.org/issue39931) in multicore pipelining
 
