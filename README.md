@@ -214,7 +214,7 @@ ls | plx 'echo {line} # {num}'
 # prefix-333
 ```
 
-## Pipeliner in xsh scripts
+### Pipeliner in xsh scripts
 By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner to your script just do `xontrib load pipeliner` before usage.
 
 ## Known issues in experimental functions
