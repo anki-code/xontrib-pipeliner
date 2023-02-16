@@ -1,3 +1,5 @@
+"""Let your pipe lines flow thru the Python code in xonsh. """
+
 import os
 import sys
 import traceback
