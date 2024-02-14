@@ -8,6 +8,11 @@ from xontrib.pipeliner.parallel import PipelinerParallel
 from xonsh.tools import print_color
 from xontrib_pipeliner_asttokens import asttokens
 
+_default_presets = {
+    "strip": "line.strip()",
+    "split": lambda args: f"line.split({repr(args[0])})"
+}
+
 def _pl(args, stdin, stdout):
     err = False
     if len(args) == 0:
@@ -18,6 +23,11 @@ def _pl(args, stdin, stdout):
         print('Example: echo "123" | pl "line[::-1]"', file=sys.stderr)
         return
 
+    presets = {**_default_presets, **__xonsh__.env.get('XONTRIB_PIPELINER_PRESETS', {})}
+    if args[0] in presets:
+        preset = presets[args[0]]
+        args = [preset(args[1:])] if callable(preset) else [preset]
+    
     fn = eval('lambda line, num:'+args[0], __xonsh__.ctx)
 
     if stdin is None:
