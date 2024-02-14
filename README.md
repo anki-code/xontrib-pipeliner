@@ -149,8 +149,9 @@ $XONTRIB_PIPELINER_PRESETS = {
 echo 'hello' | pl upper
 # HELLO
 
-echo 'hey ' | pl repeat 3
+echo 'hey \nhi ' | pl repeat 3
 # hey hey hey
+# hi hi hi
 ```
 
 ## Wrap pipeliner to get your own magic
