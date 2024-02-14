@@ -125,6 +125,34 @@ Done command with /cdrom
 ```
 Note! If you do the operations with files (i.e. `pl "execx(f'mv {line} prefix-{line}')"`) you could catch `TypeError: an integer is required` error that relates to wrong access rights to files. Fix it with `chmod` and `chown` before pipelining.
 
+## Presets
+
+There are default presets:
+```xsh
+echo "  1" | pl strip
+# 1
+
+echo "1,2,3" | pl split ,
+['1', '2', '3']
+
+echo "a,b,c" | pl split , | pl list 0
+# a
+```
+
+You can set your own presets:
+```xsh
+$XONTRIB_PIPELINER_PRESETS = {
+    "upper": "line.upper()",
+    "repeat": lambda args: f"line*int({repr(args[0])})"
+}
+
+echo 'hello' | pl upper
+# HELLO
+
+echo 'hey ' | pl repeat 3
+# hey hey hey
+```
+
 ## Wrap pipeliner to get your own magic
 ```python
 aliases['my_lovely_pl'] = lambda a,i,o: aliases['pl'](["'My lovely ' + "+a[0]], i, o)
