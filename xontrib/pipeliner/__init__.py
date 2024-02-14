@@ -10,7 +10,8 @@ from xontrib_pipeliner_asttokens import asttokens
 
 _default_presets = {
     "strip": "line.strip()",
-    "split": lambda args: f"line.split({repr(args[0])})"
+    "split": lambda args: f"line.split({repr(args[0])})",
+    "list": lambda args: f"eval(line)[int({repr(args[0])})]",
 }
 
 def _pl(args, stdin, stdout):
