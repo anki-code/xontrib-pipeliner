@@ -9,9 +9,17 @@ from xonsh.tools import print_color
 from xontrib_pipeliner_asttokens import asttokens
 
 _default_presets = {
+    "len": "len(line)",
     "strip": "line.strip()",
+    "lstrip": "line.lstrip()",
+    "rstrip": "line.rstrip()",
     "split": lambda args: f"line.split({repr(args[0])})",
     "list": lambda args: f"eval(line)[int({repr(args[0])})]",
+    "lower": "line.lower()",
+    "upper": "line.upper()",
+    "title": "line.title()",
+    "startswith": lambda args: f"line.startswith({repr(args[0])})",
+    "endswith": lambda args: f"line.endswith({repr(args[0])})",
 }
 
 def _pl(args, stdin, stdout):
