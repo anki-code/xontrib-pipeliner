@@ -27,12 +27,15 @@ def _pl(args, stdin, stdout):
     if len(args) == 0:
         print('Error: Python code not found', file=sys.stderr)
         err = True
-    if err:
-        print('Usage: <command> | <command> | ... | pl "<Python code>"', file=sys.stderr)
-        print('Example: echo "123" | pl "line[::-1]"', file=sys.stderr)
-        return
 
     presets = {**_default_presets, **__xonsh__.env.get('XONTRIB_PIPELINER_PRESETS', {})}
+    if err:
+        print('Usage: <command> | <command> | ... | pl "<Python code>"\n'
+            + 'Example: echo "123" | pl "line[::-1]"\n'
+            + 'Presets:\n' + '\n'.join(f"  {p}: {repr(v) if type(v) is str else 'func'}" for p,v in presets.items())
+        , file=sys.stderr)
+        return
+
     if args[0] in presets:
         preset = presets[args[0]]
         args = [preset(args[1:])] if callable(preset) else [preset]
