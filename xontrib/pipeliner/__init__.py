@@ -30,8 +30,9 @@ def _pl(args, stdin, stdout):
 
     presets = {**_default_presets, **__xonsh__.env.get('XONTRIB_PIPELINER_PRESETS', {})}
     if err:
-        print('Usage: <command> | <command> | ... | pl "<Python code>"\n'
+        print('Usage: <command> | <command> | ... | pl "<Python code or preset name>"\n'
             + 'Example: echo "123" | pl "line[::-1]"\n'
+            + 'Example: echo " 123 " | pl strip\n'
             + 'Presets:\n' + '\n'.join(f"  {p}: {repr(v) if type(v) is str else 'func'}" for p,v in presets.items())
         , file=sys.stderr)
         return
