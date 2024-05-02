@@ -17,15 +17,10 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 ## Usage
 Let your pipe lines flow thru the Python code:
 ```bash
-pl  # to get the list of presets
-
 <cmd> | <...> | pl "<preset name or lambda expression>" | <cmd> | <...>
 ```
-There are two variables available in lambda expression:
-* `line` from pipe.
-* `num` of the line starts with 0.
 
-#### Experimental features
+Experimental:
 
 * `ppl` is to run multicore `pl`. It tested mostly on Linux. See "Known issues" section.
 * `plx` is the shorter way to execute the commands with pipe lines i.e. `ls /home | plx 'du -sh /home/{line}'`.
@@ -34,8 +29,9 @@ There are two variables available in lambda expression:
 
 ### Presets
 
-There are default presets:
 ```xsh
+pl  # list of presets
+
 echo "  1" | pl strip
 # 1
 
@@ -61,7 +57,13 @@ echo 'hey \nhi ' | pl repeat 3
 # hi hi hi
 ```
 
-### Python way to line modification
+### Lambda string
+
+There are two variables available in lambda expression:
+* `line` from pipe.
+* `num` of the line starts with 0.
+
+#### Python way to line modification
 ```bash
 ls -1 / | pl "line + ' is here'" | head -n 3
 ```
@@ -71,7 +73,7 @@ boot is here
 dev is here
 ```
 
-### Line number
+#### Line number
 ```bash
 ls -1 / | head -n 4 | pl "f'{num} {line}'"
 ```
@@ -82,7 +84,7 @@ ls -1 / | head -n 4 | pl "f'{num} {line}'"
 3 dev
 ```
 
-### Ignore line
+#### Ignore line
 ```bash
 $ ls -1 / | head -n 4 | pl "f'{num} {line}' if num%2 == 0 else None"
 ```
@@ -91,7 +93,7 @@ $ ls -1 / | head -n 4 | pl "f'{num} {line}' if num%2 == 0 else None"
 2 cdrom
 ```
 
-### Splitting
+#### Splitting
 ```bash
 cat /etc/passwd | head -n 3 | pl "line.split(':')[6]"
 ```
@@ -101,7 +103,7 @@ cat /etc/passwd | head -n 3 | pl "line.split(':')[6]"
 /usr/sbin/nologin
 ```
 
-### Imports
+#### Imports
 ```bash
 import re
 cat /etc/passwd | head -n 3 | pl "re.sub('/bin/bash', '/usr/bin/xonsh', line)"
@@ -112,7 +114,7 @@ daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
 ```
 
-### Arrays
+#### Arrays
 ```bash
 cat /etc/passwd | head -n 3 | pl "line.split(':')" | grep nologin | pl "':'.join(eval(line)[::-1])"
 ```
@@ -121,7 +123,7 @@ cat /etc/passwd | head -n 3 | pl "line.split(':')" | grep nologin | pl "':'.join
 /usr/sbin/nologin:/bin:bin:2:2:x:bin
 ```
 
-### Python head
+#### Python head
 ```bash
 pl "'\\n'.join(list('ABCDEFG'))" | pl "line + ('!' if num%2 else '?')" | grep '!'
 ```
@@ -131,7 +133,7 @@ D!
 F!
 ```
 
-### Variables and operations chaining
+#### Variables and operations chaining
 Expression is a lambda function so using variables and operations chaining since Python 3.8+ are available by trick with the walrus operator and the list:
 ```bash
 ls -1 / | head -n3 | pl "[s:='b', line.replace(s, s.upper()+')')][-1]"
@@ -142,7 +144,7 @@ B)oot
 dev
 ```
 
-### Execute command with the line
+#### Execute command with the line
 ```bash
 ls / | head -n 3 | pl "execx('du -sh /'+line) or 'Done command with /'+line"
 ```
