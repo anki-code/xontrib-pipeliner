@@ -17,7 +17,9 @@ echo 'xontrib load pipeliner' >> ~/.xonshrc
 ## Usage
 Let your pipe lines flow thru the Python code:
 ```bash
-<cmd> | ... | pl "<lambda expression>" | <cmd> | ...
+pl  # to get the list of presets
+
+<cmd> | ... | pl "<preset name or lambda expression>" | <cmd> | ...
 ```
 There are two variables available in lambda expression:
 * `line` from pipe.
