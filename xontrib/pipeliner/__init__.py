@@ -56,7 +56,7 @@ def _pl(args, stdin, stdout):
             res = fn(line.rstrip(os.linesep), num)
         except:
             print_color('{YELLOW}' + f'Error line {num+1}: {line!r}', file=sys.stderr)
-            print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)
+            #print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)
             return
         num += 1
         if res is not None:
