@@ -32,6 +32,35 @@ There are two variables available in lambda expression:
 
 ## Examples
 
+### Presets
+
+There are default presets:
+```xsh
+echo "  1" | pl strip
+# 1
+
+echo "1,2,3" | pl split ,
+['1', '2', '3']
+
+echo "a,b,c" | pl split , | pl list 0
+# a
+```
+
+You can set your own presets:
+```xsh
+$XONTRIB_PIPELINER_PRESETS = {
+    "upper": "line.upper()",
+    "repeat": lambda args: f"line*int({repr(args[0])})"
+}
+
+echo 'hello' | pl upper
+# HELLO
+
+echo 'hey \nhi ' | pl repeat 3
+# hey hey hey
+# hi hi hi
+```
+
 ### Python way to line modification
 ```bash
 ls -1 / | pl "line + ' is here'" | head -n 3
@@ -127,34 +156,6 @@ Done command with /cdrom
 ```
 Note! If you do the operations with files (i.e. `pl "execx(f'mv {line} prefix-{line}')"`) you could catch `TypeError: an integer is required` error that relates to wrong access rights to files. Fix it with `chmod` and `chown` before pipelining.
 
-## Presets
-
-There are default presets:
-```xsh
-echo "  1" | pl strip
-# 1
-
-echo "1,2,3" | pl split ,
-['1', '2', '3']
-
-echo "a,b,c" | pl split , | pl list 0
-# a
-```
-
-You can set your own presets:
-```xsh
-$XONTRIB_PIPELINER_PRESETS = {
-    "upper": "line.upper()",
-    "repeat": lambda args: f"line*int({repr(args[0])})"
-}
-
-echo 'hello' | pl upper
-# HELLO
-
-echo 'hey \nhi ' | pl repeat 3
-# hey hey hey
-# hi hi hi
-```
 
 ## Wrap pipeliner to get your own magic
 ```python
