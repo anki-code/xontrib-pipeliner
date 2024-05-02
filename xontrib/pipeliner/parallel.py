@@ -19,7 +19,7 @@ class PipelinerParallel(object):
        try:
            return eval(self.code, ctx)
        except:
-           print_color('{YELLOW}' + f'Error line {args[1]+1}: {args[0]}', file=sys.stderr)
+           print_color('{YELLOW}' + f'Error line {args[1]+1}: {args[0]!r}', file=sys.stderr)
            print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)           
            return None
 
