@@ -49,7 +49,7 @@ You can set your own presets:
 ```xsh
 $XONTRIB_PIPELINER_PRESETS = {
     "upper": "line.upper()",
-    "repeat": lambda args: f"line*int({repr(args[0])})"
+    "repeat": lambda line, num, args: line * int(args[0])
 }
 
 echo 'hello' | pl upper
