@@ -38,10 +38,10 @@ echo "  1" | pl strip
 echo "1,2,3" | pl split ,
 ['1', '2', '3']
 
-echo "a,b,c" | pl split , | pl list 0
+echo "a,b,c" | pl split , | pl fromlist 0
 # a
 
-echo xonsh pids is $(ps ax | grep xonsh | grep -v grep | pl split ' ' | pl list 0)
+echo xonsh pids is $(ps ax | grep xonsh | grep -v grep | pl split ' ' | pl fromlist 0)
 # 56486 56913 56489 
 ```
 
