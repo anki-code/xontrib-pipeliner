@@ -56,25 +56,34 @@ def _pl(args, stdin, stdout):
         , file=sys.stderr)
         return
 
-    if args[0] in presets and callable(args[0]):
-        fn = presets[args[0]]
+    if args[0] in presets:
+        preset = presets[args[0]]
+        if callable(preset):
+            fn = preset
+        elif isinstance(preset, str):
+            fn = eval('lambda line, num, args:'+preset, __xonsh__.ctx)
+        else:
+            print_color('{YELLOW}'+f'Unsupported type: {preset!r}'+'{RESET}', file=sys.stderr)
+            return
     else:
         fn = eval('lambda line, num, args:'+args[0], __xonsh__.ctx)
 
+    fn_args = args[1:]
+    
     if stdin is None:
         try:
-            print(fn(None, 0))
+            print(fn(None, 0, fn_args))
         except:
-            print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)
+            print_color('{YELLOW}' + str(traceback.format_exc()) + '{RESET}', file=sys.stderr)
         return
 
     num = 0
     for line in stdin.readlines():
         try:
-            res = fn(line.rstrip(os.linesep), num, args[1:])
-        except:
-            print_color('{YELLOW}' + f'Error line {num+1}: {line!r}', file=sys.stderr)
-            #print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)
+            res = fn(line.rstrip(os.linesep), num, fn_args)
+        except Exception as e:
+            print_color('{YELLOW}' + f'Error line {num+1}: {line!r}: {e}' + '{RESET}', file=sys.stderr)
+            # print_color('{YELLOW}' + str(traceback.format_exc()) + '{RESET}', file=sys.stderr)
             return
         num += 1
         if res is not None:
