@@ -56,7 +56,7 @@ def _pl(args, stdin, stdout):
         , file=sys.stderr)
         return
 
-    if args[0] in presets:
+    if args[0] in presets and callable(args[0]):
         fn = presets[args[0]]
     else:
         fn = eval('lambda line, num, args:'+args[0], __xonsh__.ctx)
