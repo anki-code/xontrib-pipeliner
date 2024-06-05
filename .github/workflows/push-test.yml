@@ -16,4 +16,4 @@ jobs:
     - name: Install xontrib
       run: pip install .
     - name: Test
-      run: xonsh -c 'xontrib load pipeliner'
+      run: xonsh --no-rc -c 'xontrib load pipeliner; echo "a,b,c" | pl split , | pl fromlist 1'
