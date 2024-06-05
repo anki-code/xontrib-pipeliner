@@ -8,18 +8,37 @@ from xontrib.pipeliner.parallel import PipelinerParallel
 from xonsh.tools import print_color
 from xontrib_pipeliner_asttokens import asttokens
 
+def _preset_drop(line, num, args):
+    """Drop empty lines."""
+    if args:
+        return None if line == args[0] else line
+    else:
+        return line if line.strip() else None
+
+def _preset_fromlist(line, num, args):
+    """Read python list representation and return the element by index."""
+    lst = eval(line)
+    if lst:
+        if args:
+            n = int(args[0])
+            return lst[n] if n >= 0 and n < len(lst) else ""
+        return lst[0]
+    else:
+        return ""
+
 _default_presets = {
+    "drop": _preset_drop,
     "len": "len(line)",
     "strip": "line.strip()",
     "lstrip": "line.lstrip()",
     "rstrip": "line.rstrip()",
-    "split": lambda args: f"line.split({repr(args[0])})",
-    "list": lambda args: f"eval(line)[int({repr(args[0])})]",
+    "split": lambda line, num, args: line.split(args[0] if args else None),
+    "fromlist": _preset_fromlist,
     "lower": "line.lower()",
     "upper": "line.upper()",
     "title": "line.title()",
-    "startswith": lambda args: f"line.startswith({repr(args[0])})",
-    "endswith": lambda args: f"line.endswith({repr(args[0])})",
+    "startswith": lambda line, num, args: line.startswith(args[0]),
+    "endswith": lambda line, num, args: line.endswith(args[0]),
 }
 
 def _pl(args, stdin, stdout):
@@ -33,15 +52,14 @@ def _pl(args, stdin, stdout):
         print('Usage: <command> | <command> | ... | pl "<Python code or preset name>"\n'
             + 'Example: echo "123" | pl "line[::-1]"\n'
             + 'Example: echo " 123 " | pl strip\n'
-            + 'Presets:\n' + '\n'.join(f"  {p}: {repr(v) if type(v) is str else 'func'}" for p,v in presets.items())
+            + 'Presets:\n' + '\n'.join(f"  {p}: {repr(v) if type(v) is str else (getattr(v, '__doc__', 'func') or 'func')}" for p,v in presets.items())
         , file=sys.stderr)
         return
 
     if args[0] in presets:
-        preset = presets[args[0]]
-        args = [preset(args[1:])] if callable(preset) else [preset]
-    
-    fn = eval('lambda line, num:'+args[0], __xonsh__.ctx)
+        fn = presets[args[0]]
+    else:
+        fn = eval('lambda line, num, args:'+args[0], __xonsh__.ctx)
 
     if stdin is None:
         try:
@@ -53,7 +71,7 @@ def _pl(args, stdin, stdout):
     num = 0
     for line in stdin.readlines():
         try:
-            res = fn(line.rstrip(os.linesep), num)
+            res = fn(line.rstrip(os.linesep), num, args[1:])
         except:
             print_color('{YELLOW}' + f'Error line {num+1}: {line!r}', file=sys.stderr)
             #print_color('{YELLOW}' + str(traceback.format_exc()), file=sys.stderr)
