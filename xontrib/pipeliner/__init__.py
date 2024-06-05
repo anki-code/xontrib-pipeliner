@@ -22,7 +22,7 @@ def _preset_fromlist(line, num, args):
         if args:
             n = int(args[0])
             return lst[n] if n >= 0 and n < len(lst) else ""
-        return lst[0]
+        return str(lst[0])
     else:
         return ""
 
