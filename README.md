@@ -42,7 +42,8 @@ echo "a,b,c" | pl split , | pl fromlist 0
 # a
 
 echo xonsh pids is $(ps ax | grep xonsh | grep -v grep | pl split ' ' | pl fromlist 0)
-# 56486 56913 56489 
+# xonsh pids is 56486 56913 56489
+
 ```
 
 You can set your own presets:
