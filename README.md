@@ -23,7 +23,6 @@ Let your pipe lines flow thru the Python code:
 Experimental:
 
 * `ppl` is to run multicore `pl`. It tested mostly on Linux. See "Known issues" section.
-* `plx` is the shorter way to execute the commands with pipe lines i.e. `ls /home | plx 'du -sh /home/{line}'`.
 
 ## Examples
 
@@ -224,42 +223,10 @@ head /etc/passwd | ppl "str(num) + ' ' + line.split(':')[0]"
 Note! The order of result lines is unpredictable because lines will be processed in parallel. 
 The `num` variable contains the real line number. 
 
-### Pipeliner exec
-There are `plx` and `pplx` commands to run `execx(f"{plx_command}")` most shorter way.
-
-For example when you want to rename files you can do it Pythonic way:
-```bash
-mkdir -p /tmp/plx-test && cd /tmp/plx-test
-touch 111 222 333 && ls
-# 111 222 333
-
-ls | plx "mv {line} prefix-{line}"
-# mv 111 prefix-111
-# mv 222 prefix-222
-# mv 333 prefix-333
-
-ls
-# prefix-111 prefix-222 prefix-333
-```
-Echo example:
-```bash
-ls | plx 'echo {line} # {num}'
-# echo prefix-111 # 0
-# prefix-111
-# echo prefix-222 # 1
-# prefix-222
-# echo prefix-333 # 2
-# prefix-333
-```
-
 ### Pipeliner in xsh scripts
 By default xsh scripts haven't rc-file with xontribs loading. To add pipeliner to your script just do `xontrib load pipeliner` before usage.
 
 ## Known issues in experimental functions
-
-### plx: "Bad file descriptor" on huge amount of lines
-
-https://github.com/xonsh/xonsh/issues/4224
 
 ### ppl: [On MacOS global variables are not accessible from child processes](https://bugs.python.org/issue39931) in multicore pipelining
 
