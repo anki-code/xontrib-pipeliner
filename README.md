@@ -184,23 +184,10 @@ Add your most useful solutions to xontrib-pipeliner. PRs are welcome!
 
 ### Syntax highlighting using xonsh prompt
 
-If you're using xonsh prompt and want to use pipeliner with syntax highlighting instead of string there is experimental 
-feature that catch `pl @(<python>)` calls and uses the expression from the xonsh python substitution as pipeliner argument.
-Example:
+If you're using xonsh prompt and want to use pipeliner with syntax highlighting instead of string try [`@!()`](https://xon.sh/macros.html#subprocess-expression-macro):
 
 ```bash
-echo echo | pl @(line + '!')
-# In the xonsh prompt it's equals to:
-echo echo | pl "line + '!'" 
-```
-
-### Syntax highlighting using xonsh macros
-To avoid writing Python inside the string and get the syntax highlighting there is a tricky way with using [xonsh macro](https://xon.sh/tutorial_macros.html):
-```python
-def py(code):
-    return code
-
-echo 123 | pl @(py!(line + '2'))
+echo echo | pl @!(line + '!')
 ```
 
 ### Multicore pipelining
@@ -235,20 +222,6 @@ On Mac you can't access to the xonsh context (global variables and functions) in
 ### ppl: On MacOS multicore pipelining freezes on end
 
 Workaround is to add `cat` at the end: `echo 1 | ppl 'line' | cat`. PR is welcome!
-
-## Future
-
-Pipeliner should be a part of xonsh and has shortcut and syntax highlighting. For example:
-```python
-echo 'Pipeliner should be ' | pl @{line + 'a part of xonsh!'}
-# or
-echo 'Pipeliner should be ' | ~(line + 'a part of xonsh!')
-```
-```
-Pipeliner should be a part of xonsh!
-```
-
-If you want to support this in xonsh add your Like and support message to [Python code substitution in subproc mode](https://github.com/xonsh/xonsh/issues/3945).
 
 ## Links 
 * This package is the part of [rc-awesome](https://github.com/anki-code/xontrib-rc-awesome) - awesome snippets of code for xonshrc in xonsh shell.
