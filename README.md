@@ -1,5 +1,5 @@
 <p align="center">  
-Easily process the lines using pipes in <a href="https://xon.sh">xonsh shell</a>. Multicore processing supported.
+Easily process the lines using pipes in <a href="https://xon.sh">Xonsh shell</a>. Multicore processing supported.
 </p>
 
 <p align="center">  
